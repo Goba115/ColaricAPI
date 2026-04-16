@@ -16,10 +16,11 @@ def moznost_2():
     
 def moznost_3():
     amount = int(input("koliko ti jih lahko povem: "))
-    url = "https://v2.jokeapi.dev/joke/Any?type=single&amount={amount}"
+    url = f"https://v2.jokeapi.dev/joke/Any?type=single&amount={amount}"
     odgovor = requests.get(url)
+    print(odgovor.url)
     odgovor = odgovor.json()
-
+    print(odgovor)
     num = int(odgovor["amount"])
     if num == 0:
         print("brez odgovora")
