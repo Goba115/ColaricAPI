@@ -1,6 +1,6 @@
 import requests
 
-# Funkcija za pridobivanje trenutnega vremena
+
 def vreme():
     mesto = input("Vnesi mesto za vreme: ")
     url = f"https://wttr.in/{mesto}?format=%t"  # Pridobi temperaturo
@@ -13,7 +13,8 @@ def vreme():
     except Exception as e:
         print(f"Napaka: {e}")
 
-# Funkcija za preračunavanje valut
+
+
 def preračunavanje_valut():
     base_valuta = input("Vnesi osnovno valuto (npr. USD): ").upper()
     target_valuta = input("Vnesi ciljno valuto (npr. EUR): ").upper()
@@ -30,7 +31,10 @@ def preračunavanje_valut():
     except Exception as e:
         print(f"Napaka: {e}")
 
-# Funkcija za pridobivanje cene kriptovalute
+
+
+
+
 def cena_kriptovalute():
     kovanec = input("Vnesi ime kriptovalute (npr. bitcoin): ").lower()
     url = f"https://api.coingecko.com/api/v3/simple/price?ids={kovanec}&vs_currencies=eur"
@@ -45,7 +49,7 @@ def cena_kriptovalute():
     except Exception as e:
         print(f"Napaka: {e}")
 
-# Funkcija za zgodovinske tečaje valut
+
 def zgodovina_tečajev():
     base_valuta = input("Vnesi osnovno valuto (npr. EUR): ").upper()
     target_valuta = input("Vnesi ciljno valuto (npr. USD): ").upper()
@@ -61,7 +65,7 @@ def zgodovina_tečajev():
     except Exception as e:
         print(f"Napaka: {e}")
 
-# Funkcija za prikaz menija
+
 def meni():
     while True:
         print("\n--- MENI ---")
@@ -87,5 +91,5 @@ def meni():
         else:
             print("Napačna izbira. Poskusi ponovno.")
 
-# Zaženemo meni
+
 meni()
