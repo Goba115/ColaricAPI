@@ -12,7 +12,7 @@ def moznost_2():
     vrednost = odgovor["bitcoin"]["usd"]
     print(f"vrednost bitcoina trenutno je: {vrednost} USD")
     bogat = int(input("koliko bitcoinov imaš? ")) * vrednost
-    print(f"imaš {bogat} USD \nmater si bogat")
+    print(f"imaš {bogat} USD \nkok si ti bogat, a sem lahko tvoj prijatel")
     
 def moznost_3():
     amount = int(input("koliko ti jih lahko povem: "))
