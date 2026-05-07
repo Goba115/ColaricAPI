@@ -4,9 +4,6 @@ def moznost_1():
     try:
         datum = input("Vnesi datum YYYY-MM-DD: ")
         
-            
-        
-        url = f"https://data.weather.gov.hk/weatherAPI/opendata/lunardate.php?date=[{datum}]"
         url_time = "https://timeapi.io/api/v1/time/current/ip?ipAddress=95.87.148.47"
 
 
@@ -15,6 +12,7 @@ def moznost_1():
             datum = str(cajt["date"])
             print(f"danes smo: {datum}")
 
+        url = f"https://data.weather.gov.hk/weatherAPI/opendata/lunardate.php?date=[{datum}]"
         odgovor = requests.get(url).json()
 
         koledar = odgovor["LunarDate"]
