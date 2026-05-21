@@ -2,12 +2,12 @@ import requests
 
 def moznost_1():
     try:
-        datum = input("Vnesi datum YYYY-MM-DD: ")
+        datum = input("Vnesi datum YYYY-MM-DD od 2023-01-01 do 2028-12-31\nlahko napises 'danes': ")
         
         url_time = "https://timeapi.io/api/v1/time/current/ip?ipAddress=95.87.148.47"
 
 
-        if datum == "sedaj":
+        if datum == "danes":
             cajt = requests.get(url_time).json()
             datum = str(cajt["date"])
             print(f"danes smo: {datum}")
@@ -18,6 +18,7 @@ def moznost_1():
         koledar = odgovor["LunarDate"]
 
         print(f"Tukaj je gregorjanski koledar: {koledar}")
+        
 
     except ValueError as e:
         print("Napaka pri vnosu:", e)
@@ -25,8 +26,12 @@ def moznost_1():
         print("Prišlo je do napake pri povezavi z API-jem:", e)
     except KeyError:
         print("Odgovor API-ja ni bil v pričakovani obliki.")
+    except KeyboardInterrupt:
+        print("kočano")
 
 import requests
+
+
 
 def moznost_2():
     try:
@@ -37,8 +42,9 @@ def moznost_2():
         vrednost = podatki["bitcoin"]["usd"]
 
         print(f"vrednost bitcoina trenutno je: {vrednost} USD")
-        bogat = int(input("koliko bitcoinov imaš? ")) * vrednost
-        print(f"imaš {bogat} USD \nkok si ti bogat, a sem lahko tvoj prijatel")
+        bogat = float(input("koliko bitcoinov imaš? ")) * vrednost
+        
+        print(f"imaš {bogat} USD")
     
     except ValueError:
         print("Vnesel si nekaj, kar ni število.")
@@ -46,23 +52,30 @@ def moznost_2():
         print("Napaka pri povezavi z API-jem:", e)
     except KeyError:
         print("Odgovor API-ja ni v pričakovani obliki.")
+    except KeyboardInterrupt:
+        print("kočano")
 
 def moznost_3():
+    import requests
+
     try:
-        amount = int(input("koliko ti jih lahko povem: "))
-        url = f"https://v2.jokeapi.dev/joke/Any?type=single&amount={amount}"
-        odgovor = requests.get(url)
-        odgovor.raise_for_status()
-        podatki = odgovor.json()
+        št = int(input("Koliko šal ti lahko povem: "))
 
-        num = int(podatki.get("amount", 0))
-        if num == 0:
-            print("brez odgovora")
-            return
+        if št <= 0:
+            print("Vnesi pozitivno število.")
+        else:
+            print()
+            for i in range(št):
+                url = "https://v2.jokeapi.dev/joke/Any?type=single"
+                odgovor = requests.get(url)
+                podatki = odgovor.json()
 
-        print()
-        for i in range(num):
-            print(podatki["jokes"][i]["joke"], "\n")
+                # preverimo, če je odgovor v pričakovani obliki
+                joke = podatki.get("joke")
+                if joke:
+                    print(f"{i+1}. {joke}\n")
+                else:
+                    print(f"{i+1}. Brez odgovora\n")
 
     except ValueError:
         print("Vnesel si nekaj, kar ni število.")
@@ -103,26 +116,56 @@ def moznost_4():
 
     except KeyError:
         print("Odgovor API-ja ni bil v pričakovani obliki.")
+    
+    except KeyboardInterrupt:
+        print("kočano")
+
+def moznost_5():
+    try:
+        url = "https://api.myip.com/"
+        odgovor = requests.get(url)
+        podatki = odgovor.json()
+        vrednost = podatki["ip"]
+
+        print(f"tvoj ip je: {vrednost}")
+        
+
+    
+    except requests.RequestException as e:
+        print("Napaka pri povezavi z API-jem:", e)
+    except KeyError:
+        print("Odgovor API-ja ni v pričakovani obliki.")
+    except KeyboardInterrupt:
+        print("kočano")
+
+
 
 while True:
-    print("\n--- MENI ---")
-    print("1 - koledar")
-    print("2 - preveri vrednost valut")
-    print("3 - povej en vic")
-    print("4 - sodo/liho")
-    print("0 - Izhod")
+    try:
+        print("\n--- MENI ---")
+        print("1 - koledar")
+        print("2 - preveri vrednost valut")
+        print("3 - povej en vic")
+        print("4 - sodo/liho")
+        print("5 - tvoj ip")
+        print("0 - Izhod")
 
-    izbira = input("Izbira: ")
+        izbira = input("Izbira: ")
 
-    if izbira == "1":
-        moznost_1()
-    elif izbira == "2":
-        moznost_2()
-    elif izbira == "3":
-        moznost_3()
-    elif izbira == "4":
-        moznost_4()
-    elif izbira == "0":
+        if izbira == "1":
+            moznost_1()
+        elif izbira == "2":
+            moznost_2()
+        elif izbira == "3":
+            moznost_3()
+        elif izbira == "4":
+            moznost_4()
+        elif izbira == "5":
+            moznost_5()
+        elif izbira == "0":
+            break
+        else:
+            print("Napačna izbira.")
+    except KeyboardInterrupt:
+        print("kočano")
         break
-    else:
-        print("Napačna izbira.")

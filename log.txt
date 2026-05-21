@@ -4,3 +4,11 @@
 
 število 4 je sodo
 
+število 54 je sodo
+
+število 13 je liho
+
+število 5 je liho
+
+število 0 je sodo
+
